@@ -19,4 +19,9 @@ public class AttachmentContent {
 
     @OneToOne
     private Attachment attachment;
+
+    public AttachmentContent(byte[] data, Attachment attachment) {
+        this.bytes = data;
+        this.attachment = attachment;
+    }
 }

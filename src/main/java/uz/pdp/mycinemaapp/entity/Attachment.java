@@ -23,4 +23,10 @@ public class Attachment {
 
     @Column(nullable = false)
     private String originalName;
+
+    public Attachment(String name, long size, String contentType) {
+        this.originalName = name;
+        this.size = size;
+        this.contentType = contentType;
+    }
 }
