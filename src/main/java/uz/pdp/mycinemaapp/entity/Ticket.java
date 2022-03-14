@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity(name = "tickets")
 public class Ticket {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToOne
