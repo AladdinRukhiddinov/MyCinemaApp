@@ -26,6 +26,9 @@ public class Ticket {
     private Attachment qrCode;
 
     @Column(nullable = false)
+    private Double price;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TicketStatus status;
 
