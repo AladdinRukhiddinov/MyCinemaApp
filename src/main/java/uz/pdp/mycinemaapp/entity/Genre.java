@@ -9,18 +9,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "seats")
-public class Seat {
+@Entity(name = "genres")
+public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(nullable = false)
-    private Integer number;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    @ManyToOne
-    private Row row;
-
-    @ManyToOne
-    private PriceCategory priceCategory;
 }

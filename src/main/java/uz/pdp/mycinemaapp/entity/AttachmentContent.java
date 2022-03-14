@@ -9,18 +9,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "seats")
-public class Seat {
+@Entity(name = "attachment_contents")
+public class AttachmentContent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Integer number;
+    private byte[] bytes;
 
-    @ManyToOne
-    private Row row;
-
-    @ManyToOne
-    private PriceCategory priceCategory;
+    @OneToOne
+    private Attachment attachment;
 }
