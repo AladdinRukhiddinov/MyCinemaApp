@@ -20,5 +20,5 @@ public class PriceCategory extends AbsEntity {
     private Double additional_fee_in_percent;
 
     @Column(nullable = false)
-    private String color;
+    private Integer color;
 }
