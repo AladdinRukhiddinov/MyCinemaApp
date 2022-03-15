@@ -1,5 +1,7 @@
 package uz.pdp.mycinemaapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "rows")
+@Entity(name = "hall_rows")
+@JsonIgnoreProperties(value = {"seatList"})
 public class Row {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +22,7 @@ public class Row {
     @Column(nullable = false)
     private Integer number;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "row", cascade = CascadeType.ALL)
     private List<Seat> seatList;
 

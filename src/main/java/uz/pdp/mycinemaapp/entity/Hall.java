@@ -1,5 +1,6 @@
 package uz.pdp.mycinemaapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,8 @@ public class Hall {
     @Column(nullable = false)
     private Double vip_additional_fee_in_percent;
 
-    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Row> rowList;
 
     public Hall(String name, Double vip_additional_fee_in_percent, List<Row> rowList) {
