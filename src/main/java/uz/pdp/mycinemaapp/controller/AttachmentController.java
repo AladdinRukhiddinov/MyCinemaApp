@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 import uz.pdp.mycinemaapp.payload.ApiResponse;
 import uz.pdp.mycinemaapp.service.AttachmentService;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api/attachment")
 @RequiredArgsConstructor
@@ -27,6 +29,11 @@ public class AttachmentController {
     public HttpEntity<?> getAttachment(@PathVariable Long id) {
         ApiResponse apiResponse = attachmentService.getAttachment(id);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/download/{attachmentId}")
+    public HttpEntity<?> getAttachmentFile(@PathVariable Long attachmentId) throws IOException {
+        return attachmentService.fileDownload(attachmentId);
     }
 
     @PostMapping

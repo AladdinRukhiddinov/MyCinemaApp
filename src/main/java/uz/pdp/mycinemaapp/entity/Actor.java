@@ -23,4 +23,10 @@ public class Actor {
 
     @OneToOne
     private Attachment attachment;
+
+    public Actor(String fullName, String bio, Attachment attachment) {
+        this.fullName = fullName;
+        this.bio = bio;
+        this.attachment = attachment;
+    }
 }

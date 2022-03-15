@@ -20,7 +20,7 @@ public class DistributorService {
     public ApiResponse getAllDistributors(){
         List<Distributor> distributorList = distributorRepository.findAll();
         if (distributorList.size()==0) {
-            return new ApiResponse("List bo'sh",false);
+            return new ApiResponse("List empty!",false);
         }
         return new ApiResponse("Success",true,distributorList);
     }
@@ -41,7 +41,7 @@ public class DistributorService {
         Distributor distributor = new Distributor();
         distributor.setDescription(dist.getDescription());
         distributor.setName(dist.getName());
-        Distributor save = distributorRepository.save(dist);
+        Distributor save = distributorRepository.save(distributor);
         return new ApiResponse("Successfully added!!",true,save);
     }
 
