@@ -23,4 +23,10 @@ public class Director {
 
     @OneToOne
     private Attachment attachment;
+
+    public Director(String fullName, String bio, Attachment attachment) {
+        this.fullName = fullName;
+        this.bio = bio;
+        this.attachment = attachment;
+    }
 }
