@@ -20,12 +20,12 @@ public class Row extends AbsEntity {
     @Column(nullable = false)
     private Integer number;
 
+    @ManyToOne
+    private Hall hall;
+
     @JsonIgnore
     @OneToMany(mappedBy = "row", cascade = CascadeType.ALL)
     private List<Seat> seatList;
-
-    @ManyToOne
-    private Hall hall;
 
     public Row(Integer number, Hall hall) {
         this.number = number;
