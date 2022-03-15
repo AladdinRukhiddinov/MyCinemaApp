@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import uz.pdp.mycinemaapp.entity.Attachment;
 import uz.pdp.mycinemaapp.entity.AttachmentContent;
@@ -15,8 +14,6 @@ import uz.pdp.mycinemaapp.payload.ApiResponse;
 import uz.pdp.mycinemaapp.repository.AttachmentContentRepository;
 import uz.pdp.mycinemaapp.repository.AttachmentRepository;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
