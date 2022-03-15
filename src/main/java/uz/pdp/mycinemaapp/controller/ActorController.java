@@ -28,7 +28,7 @@ public class ActorController {
         return ResponseEntity.status(apiResponse.isStatus()?200:404).body(apiResponse);
     }
 
-    @PostMapping()
+    @PostMapping
     public HttpEntity<?> addActor(@RequestPart("file") MultipartFile file, @RequestPart("json-actor") Actor actor){
         ApiResponse apiResponse = actorService.addActor(file, actor);
         return ResponseEntity.status(apiResponse.isStatus()?200:409).body(apiResponse);
