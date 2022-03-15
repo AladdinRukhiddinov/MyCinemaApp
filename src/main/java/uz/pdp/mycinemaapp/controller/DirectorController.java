@@ -9,6 +9,8 @@ import uz.pdp.mycinemaapp.entity.Director;
 import uz.pdp.mycinemaapp.payload.ApiResponse;
 import uz.pdp.mycinemaapp.service.DirectorService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/director")
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class DirectorController {
     }
 
     @GetMapping("/{id}")
-    public HttpEntity<?> getDirector(@PathVariable Long id){
+    public HttpEntity<?> getDirector(@PathVariable UUID id){
         ApiResponse apiResponse = directorService.getDirector(id);
         return ResponseEntity.status(apiResponse.isStatus()?200:404).body(apiResponse);
     }
@@ -35,13 +37,13 @@ public class DirectorController {
     }
 
     @PutMapping("/{id}")
-    public HttpEntity<?> editDirector(@PathVariable Long id,@RequestPart("file") MultipartFile file, @RequestPart("json-director") Director director){
+    public HttpEntity<?> editDirector(@PathVariable UUID id,@RequestPart("file") MultipartFile file, @RequestPart("json-director") Director director){
         ApiResponse apiResponse = directorService.editDirector(id, file, director);
         return ResponseEntity.status(apiResponse.isStatus()?200:409).body(apiResponse);
     }
 
     @DeleteMapping("/{id}")
-    public HttpEntity<?> addDirector(@PathVariable Long id){
+    public HttpEntity<?> addDirector(@PathVariable UUID id){
         ApiResponse apiResponse = directorService.deleteDirector(id);
         return ResponseEntity.status(apiResponse.isStatus()?200:409).body(apiResponse);
     }

@@ -6,7 +6,6 @@ import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 import javax.persistence.*;
 
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter

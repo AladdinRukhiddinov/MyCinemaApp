@@ -10,6 +10,7 @@ import uz.pdp.mycinemaapp.payload.ApiResponse;
 import uz.pdp.mycinemaapp.service.AttachmentService;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/attachment")
@@ -26,13 +27,13 @@ public class AttachmentController {
     }
 
     @GetMapping("/{id}")
-    public HttpEntity<?> getAttachment(@PathVariable Long id) {
+    public HttpEntity<?> getAttachment(@PathVariable UUID id) {
         ApiResponse apiResponse = attachmentService.getAttachment(id);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 409).body(apiResponse);
     }
 
     @GetMapping("/download/{attachmentId}")
-    public HttpEntity<?> getAttachmentFile(@PathVariable Long attachmentId) throws IOException {
+    public HttpEntity<?> getAttachmentFile(@PathVariable UUID attachmentId) throws IOException {
         return attachmentService.fileDownload(attachmentId);
     }
 
@@ -43,13 +44,13 @@ public class AttachmentController {
     }
 
     @PutMapping("/{id}")
-    public HttpEntity<?> editAttachment(@PathVariable Long id, @RequestParam MultipartFile file) {
+    public HttpEntity<?> editAttachment(@PathVariable UUID id, @RequestParam MultipartFile file) {
         ApiResponse apiResponse = attachmentService.editAttachment(id, file);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 409).body(apiResponse);
     }
 
     @DeleteMapping("/{id}")
-    public HttpEntity<?> deleteAttachment(@PathVariable Long id) {
+    public HttpEntity<?> deleteAttachment(@PathVariable UUID id) {
         ApiResponse apiResponse = attachmentService.deleteAttachment(id);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 404).body(apiResponse);
     }

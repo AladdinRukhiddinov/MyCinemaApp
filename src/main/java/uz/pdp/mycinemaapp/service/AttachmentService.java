@@ -17,6 +17,7 @@ import uz.pdp.mycinemaapp.repository.AttachmentRepository;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +37,7 @@ public class AttachmentService {
         }
     }
 
-    public ResponseEntity<ByteArrayResource> fileDownload(Long attachmentId) throws IOException{
+    public ResponseEntity<ByteArrayResource> fileDownload(UUID attachmentId) throws IOException{
         AttachmentContent attachmentContent = attachmentContentRepository.findByAttachmentId(attachmentId);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(attachmentContent.getAttachment().getContentType()))
@@ -53,7 +54,7 @@ public class AttachmentService {
 
     }
 
-    public ApiResponse getAttachment(Long id) {
+    public ApiResponse getAttachment(UUID id) {
         Optional<Attachment> optionalAttachment = attachmentRepository.findById(id);
         if (optionalAttachment.isEmpty()) {
             return new ApiResponse("Attachment not found!", false);
@@ -62,7 +63,7 @@ public class AttachmentService {
 
     }
 
-    public ApiResponse editAttachment(Long id, MultipartFile file) {
+    public ApiResponse editAttachment(UUID id, MultipartFile file) {
         Optional<Attachment> optionalAttachment = attachmentRepository.findById(id);
         if (optionalAttachment.isEmpty()) {
             return new ApiResponse("Attachment not found!", false);
@@ -83,7 +84,7 @@ public class AttachmentService {
         }
     }
 
-    public ApiResponse deleteAttachment(Long id) {
+    public ApiResponse deleteAttachment(UUID id) {
         Optional<Attachment> optionalAttachment = attachmentRepository.findById(id);
         if (optionalAttachment.isEmpty()) {
             return new ApiResponse("Attachment not found!", false);

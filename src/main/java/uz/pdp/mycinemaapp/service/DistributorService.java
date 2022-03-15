@@ -9,6 +9,7 @@ import uz.pdp.mycinemaapp.repository.DistributorRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class DistributorService {
         return new ApiResponse("Success",true,distributorList);
     }
 
-    public ApiResponse getDistributor(Integer id){
+    public ApiResponse getDistributor(UUID id){
         Optional<Distributor> optionalDistributor = distributorRepository.findById(id);
         if (optionalDistributor.isEmpty()) {
             return new ApiResponse("Distributor not found!",false);
@@ -45,7 +46,7 @@ public class DistributorService {
         return new ApiResponse("Successfully added!!",true,save);
     }
 
-    public ApiResponse editDistributor(Integer id, Distributor dist){
+    public ApiResponse editDistributor(UUID id, Distributor dist){
         Optional<Distributor> optionalDistributor = distributorRepository.findById(id);
         if (optionalDistributor.isEmpty()) {
             return new ApiResponse("Distributor not found!",false);
@@ -61,7 +62,7 @@ public class DistributorService {
         }
     }
 
-    public ApiResponse deleteDistributor(Integer id){
+    public ApiResponse deleteDistributor(UUID id){
         Optional<Distributor> optionalDistributor = distributorRepository.findById(id);
         if (optionalDistributor.isEmpty()) {
             return new ApiResponse("Distributor not found!",false);

@@ -9,6 +9,7 @@ import uz.pdp.mycinemaapp.repository.GenreRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class GenreService {
         return new ApiResponse("Success", true, genreList);
     }
 
-    public ApiResponse getGenre(Integer id) {
+    public ApiResponse getGenre(UUID id) {
         Optional<Genre> optionalGenre = genreRepository.findById(id);
         if (optionalGenre.isEmpty()) {
             return new ApiResponse("Genre not found!", false);
@@ -45,7 +46,7 @@ public class GenreService {
 
     }
 
-    public ApiResponse editGenre(Integer id, Genre genre) {
+    public ApiResponse editGenre(UUID id, Genre genre) {
         Optional<Genre> optionalGenre = genreRepository.findById(id);
         if (optionalGenre.isEmpty()) {
             return new ApiResponse("Genre not found!", false);
@@ -60,7 +61,7 @@ public class GenreService {
         }
     }
 
-    public ApiResponse deleteGenre(Integer id) {
+    public ApiResponse deleteGenre(UUID id) {
         Optional<Genre> optionalGenre = genreRepository.findById(id);
         if (optionalGenre.isEmpty()) {
             return new ApiResponse("Genre not found!", false);

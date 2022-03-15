@@ -9,6 +9,7 @@ import uz.pdp.mycinemaapp.projection.RowProjection;
 import uz.pdp.mycinemaapp.repository.RowRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +18,7 @@ public class RowService {
 
     private final RowRepository rowRepository;
 
-    public ApiResponse getRowsByHallId(Long id){
+    public ApiResponse getRowsByHallId(UUID id){
         List<RowProjection> rowsByHallId = rowRepository.ketmon(id);
         if (rowsByHallId.size() == 0) {
             return new ApiResponse("List empty!", false);

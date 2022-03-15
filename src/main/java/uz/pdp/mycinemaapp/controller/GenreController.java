@@ -8,6 +8,8 @@ import uz.pdp.mycinemaapp.entity.Genre;
 import uz.pdp.mycinemaapp.payload.ApiResponse;
 import uz.pdp.mycinemaapp.service.GenreService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/genre")
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class GenreController {
     }
 
     @GetMapping("/{id}")
-    public HttpEntity<?> getGenre(@PathVariable Integer id){
+    public HttpEntity<?> getGenre(@PathVariable UUID id){
         ApiResponse apiResponse = genreService.getGenre(id);
         return ResponseEntity.status(apiResponse.isStatus()?200:409).body(apiResponse);
     }
@@ -34,13 +36,13 @@ public class GenreController {
     }
 
     @PutMapping("/{id}")
-    public HttpEntity<?> editGenre(@PathVariable Integer id,@RequestBody Genre genre){
+    public HttpEntity<?> editGenre(@PathVariable UUID id,@RequestBody Genre genre){
         ApiResponse apiResponse = genreService.editGenre(id,genre);
         return ResponseEntity.status(apiResponse.isStatus()?200:409).body(apiResponse);
     }
 
     @DeleteMapping("/{id}")
-    public HttpEntity<?> deleteGenre(@PathVariable Integer id){
+    public HttpEntity<?> deleteGenre(@PathVariable UUID id){
         ApiResponse apiResponse = genreService.deleteGenre(id);
         return ResponseEntity.status(apiResponse.isStatus()?200:404).body(apiResponse);
     }

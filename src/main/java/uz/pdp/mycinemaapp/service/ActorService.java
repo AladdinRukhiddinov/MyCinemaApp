@@ -15,6 +15,7 @@ import uz.pdp.mycinemaapp.repository.AttachmentRepository;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +34,7 @@ public class ActorService {
         return new ApiResponse("Success", true, actorList);
     }
 
-    public ApiResponse getActor(Long id) {
+    public ApiResponse getActor(UUID id) {
         Optional<Actor> optionalActor = actorRepository.findById(id);
         if (optionalActor.isEmpty()) {
             return new ApiResponse("Distributor not found!", false);
@@ -54,7 +55,7 @@ public class ActorService {
         }
     }
 
-    public ApiResponse editActor(Long id, MultipartFile file, Actor actor) {
+    public ApiResponse editActor(UUID id, MultipartFile file, Actor actor) {
         Optional<Actor> optionalActor = actorRepository.findById(id);
         if (optionalActor.isEmpty()) {
             return new ApiResponse("Actor not found!!", false);
@@ -85,7 +86,7 @@ public class ActorService {
         }
     }
 
-    public ApiResponse deleteActor(Long id) {
+    public ApiResponse deleteActor(UUID id) {
         Optional<Actor> optionalActor = actorRepository.findById(id);
         if (optionalActor.isEmpty()) {
             return new ApiResponse("Actor not found!!", false);

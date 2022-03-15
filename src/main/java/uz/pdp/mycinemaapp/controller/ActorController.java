@@ -9,6 +9,8 @@ import uz.pdp.mycinemaapp.entity.Actor;
 import uz.pdp.mycinemaapp.payload.ApiResponse;
 import uz.pdp.mycinemaapp.service.ActorService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/actor")
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class ActorController {
     }
 
     @GetMapping("/{id}")
-    public HttpEntity<?> getActor(@PathVariable Long id){
+    public HttpEntity<?> getActor(@PathVariable UUID id){
         ApiResponse apiResponse = actorService.getActor(id);
         return ResponseEntity.status(apiResponse.isStatus()?200:404).body(apiResponse);
     }
@@ -35,13 +37,13 @@ public class ActorController {
     }
 
     @PutMapping("/{id}")
-    public HttpEntity<?> editActor(@PathVariable Long id,@RequestPart("file") MultipartFile file, @RequestPart("json-actor") Actor actor){
+    public HttpEntity<?> editActor(@PathVariable UUID id,@RequestPart("file") MultipartFile file, @RequestPart("json-actor") Actor actor){
         ApiResponse apiResponse = actorService.editActor(id, file, actor);
         return ResponseEntity.status(apiResponse.isStatus()?200:409).body(apiResponse);
     }
 
     @DeleteMapping("/{id}")
-    public HttpEntity<?> addActor(@PathVariable Long id){
+    public HttpEntity<?> addActor(@PathVariable UUID id){
         ApiResponse apiResponse = actorService.deleteActor(id);
         return ResponseEntity.status(apiResponse.isStatus()?200:409).body(apiResponse);
     }

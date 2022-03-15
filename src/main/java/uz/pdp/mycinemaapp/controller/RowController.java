@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import uz.pdp.mycinemaapp.payload.ApiResponse;
 import uz.pdp.mycinemaapp.service.RowService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/row")
 @RequiredArgsConstructor
@@ -18,7 +20,7 @@ public class RowController {
     private final RowService rowService;
 
     @GetMapping("/getRowByHallId/{hallId}")
-    public HttpEntity<?> getRowsByHallId(@PathVariable Long hallId){
+    public HttpEntity<?> getRowsByHallId(@PathVariable UUID hallId){
         ApiResponse apiResponse = rowService.getRowsByHallId(hallId);
         return ResponseEntity.status(apiResponse.isStatus()?200:204).body(apiResponse);
     }

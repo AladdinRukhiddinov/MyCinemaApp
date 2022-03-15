@@ -16,6 +16,7 @@ import uz.pdp.mycinemaapp.repository.DirectorRepository;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class DirectorService {
         return new ApiResponse("Success", true, directorList);
     }
 
-    public ApiResponse getDirector(Long id) {
+    public ApiResponse getDirector(UUID id) {
         Optional<Director> optionalDirector = directorRepository.findById(id);
         if (optionalDirector.isEmpty()) {
             return new ApiResponse("Distributor not found!", false);
@@ -55,7 +56,7 @@ public class DirectorService {
         }
     }
 
-    public ApiResponse editDirector(Long id, MultipartFile file, Director director) {
+    public ApiResponse editDirector(UUID id, MultipartFile file, Director director) {
         Optional<Director> optionalDirector = directorRepository.findById(id);
         if (optionalDirector.isEmpty()) {
             return new ApiResponse("Director not found!!", false);
@@ -86,7 +87,7 @@ public class DirectorService {
         }
     }
 
-    public ApiResponse deleteDirector(Long id) {
+    public ApiResponse deleteDirector(UUID id) {
         Optional<Director> optionalDirector = directorRepository.findById(id);
         if (optionalDirector.isEmpty()) {
             return new ApiResponse("Director not found!!", false);

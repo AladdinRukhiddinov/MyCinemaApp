@@ -1,7 +1,6 @@
 package uz.pdp.mycinemaapp.entity;
 
 import lombok.*;
-import uz.pdp.mycinemaapp.SessionsHall;
 import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 
 import javax.persistence.*;
