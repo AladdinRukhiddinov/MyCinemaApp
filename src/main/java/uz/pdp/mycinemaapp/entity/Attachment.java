@@ -1,19 +1,17 @@
 package uz.pdp.mycinemaapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 @Entity(name = "attachments")
-public class Attachment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Attachment extends AbsEntity {
 
     @Column(nullable = false)
     private String contentType;

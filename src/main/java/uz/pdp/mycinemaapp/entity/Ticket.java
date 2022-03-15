@@ -1,20 +1,18 @@
 package uz.pdp.mycinemaapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 import uz.pdp.mycinemaapp.entity.enums.TicketStatus;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 @Entity(name = "tickets")
-public class Ticket {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Ticket extends AbsEntity {
 
     @OneToOne
     private MovieSession movieSession;

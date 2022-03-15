@@ -1,20 +1,18 @@
 package uz.pdp.mycinemaapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 @Entity(name = "night_session_add_fee")
-public class NightSessionAddFee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class NightSessionAddFee extends AbsEntity {
 
     @Column(nullable = false)
     private Double percentage;

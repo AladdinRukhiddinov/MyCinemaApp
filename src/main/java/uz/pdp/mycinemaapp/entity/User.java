@@ -1,23 +1,20 @@
 package uz.pdp.mycinemaapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 import uz.pdp.mycinemaapp.entity.enums.Gender;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 @Entity(name = "users")
-public class User {
-    @Id
-    @GeneratedValue
-    private UUID id;
+public class User extends AbsEntity {
 
     @Column(nullable = false)
     private String fullName;

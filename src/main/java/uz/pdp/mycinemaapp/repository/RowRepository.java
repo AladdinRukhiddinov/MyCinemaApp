@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface RowRepository extends JpaRepository<Row,Long> {
 
-    @Query(value = "select r.id, r.number, h.name as Name from hall_rows r join halls h on h.id = r.hall_id where h.id= :hallId",nativeQuery = true)
+    @Query(value = "select cast (r.id as varchar) as id, r.number, h.name as Name from hall_rows r join halls h on h.id = r.hall_id where h.id= :hallId",nativeQuery = true)
     List<RowProjection> ketmon(Long hallId);
 }

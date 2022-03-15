@@ -1,21 +1,18 @@
 package uz.pdp.mycinemaapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 
 import javax.persistence.*;
 import java.util.List;
 
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 @Entity(name = "halls")
-public class Hall {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Hall extends AbsEntity {
 
     @Column(nullable = false, unique = true)
     private String name;
