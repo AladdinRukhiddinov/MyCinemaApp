@@ -19,7 +19,7 @@ public class MovieSession {
     @ManyToOne
     private Movie movie;
 
-    @ManyToMany
-    private List<Hall> hall;
+    @Column(nullable = false)
+    private Boolean is_active;
 }
 

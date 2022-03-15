@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +16,17 @@ public class Row {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private Integer number;
+
+    @OneToMany(mappedBy = "row", cascade = CascadeType.ALL)
+    private List<Seat> seatList;
+
     @ManyToOne
     private Hall hall;
+
+    public Row(Integer number, Hall hall) {
+        this.number = number;
+        this.hall = hall;
+    }
 }

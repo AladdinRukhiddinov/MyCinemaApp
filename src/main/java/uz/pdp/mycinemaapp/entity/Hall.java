@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,4 +21,13 @@ public class Hall {
 
     @Column(nullable = false)
     private Double vip_additional_fee_in_percent;
+
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
+    private List<Row> rowList;
+
+    public Hall(String name, Double vip_additional_fee_in_percent, List<Row> rowList) {
+        this.name = name;
+        this.vip_additional_fee_in_percent = vip_additional_fee_in_percent;
+        this.rowList = rowList;
+    }
 }

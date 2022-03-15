@@ -1,26 +1,26 @@
-package uz.pdp.mycinemaapp.entity;
+package uz.pdp.mycinemaapp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.pdp.mycinemaapp.SessionsHall;
+import uz.pdp.mycinemaapp.entity.Hall;
+import uz.pdp.mycinemaapp.entity.MovieSession;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "session_dates")
-public class SessionDate {
+@Entity(name = "sessions_halls")
+public class SessionsHall {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private SessionsHall sessionsHall;
+    private MovieSession movieSession;
 
-    @Column(nullable = false)
-    private Date date;
+    @ManyToOne
+    private Hall hall;
 }
 
