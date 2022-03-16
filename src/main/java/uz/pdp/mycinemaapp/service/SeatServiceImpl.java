@@ -28,7 +28,7 @@ public class SeatServiceImpl implements SeatService {
     private final PriceCategoryRepository priceCategoryRepository;
 
     @Override
-    public ApiResponse getAllSeatsByPage(Integer page, Integer size) {
+    public ApiResponse getAllSeatsByPage(int page, int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
         Page<Seat> seats = seatRepository.findAll(pageable);
         if (seats.getSize()==0) {

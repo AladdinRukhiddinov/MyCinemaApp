@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface SeatService {
 
-    ApiResponse getAllSeatsByPage(Integer page,Integer size);
+    ApiResponse getAllSeatsByPage(int page,int size);
     ApiResponse getAllSeats();
     ApiResponse getSeatByRowId(UUID rowId);
     ApiResponse getSeatByHallId(UUID halId);

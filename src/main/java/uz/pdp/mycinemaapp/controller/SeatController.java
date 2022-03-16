@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import uz.pdp.mycinemaapp.payload.ApiResponse;
 import uz.pdp.mycinemaapp.payload.dtos.SeatDto;
 import uz.pdp.mycinemaapp.service.SeatServiceImpl;
+import uz.pdp.mycinemaapp.util.Constants;
 
 import java.util.UUID;
 
@@ -18,7 +19,7 @@ public class SeatController {
     private final SeatServiceImpl seatService;
 
     @GetMapping("/getAllSeatsByPage")
-    public HttpEntity<?> getAllSeatsByPage(@RequestParam Integer page, @RequestParam Integer size) {
+    public HttpEntity<?> getAllSeatsByPage(@RequestParam(name = "page") int page, @RequestParam(name = "size",defaultValue = Constants.DEFAULT_PAGE_SIZE) int size) {
         ApiResponse allSeatsByPage = seatService.getAllSeatsByPage(page, size);
         return ResponseEntity.status(allSeatsByPage.isStatus() ? 200 : 409).body(allSeatsByPage);
     }
