@@ -11,7 +11,7 @@ public interface MovieService {
 
     ApiResponse getMovieById(UUID id);
 
-    ApiResponse addMovieById(MovieDto movieDto);
+    ApiResponse addMovie(MovieDto movieDto);
 
     ApiResponse editMovie(UUID id, MovieDto movieDto);
 

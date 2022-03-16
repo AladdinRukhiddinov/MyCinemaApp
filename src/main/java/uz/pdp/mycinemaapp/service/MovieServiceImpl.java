@@ -52,7 +52,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public ApiResponse addMovieById(MovieDto movieDto) {
+    public ApiResponse addMovie(MovieDto movieDto) {
         List<Actor> actors = new ArrayList<>();
         movieDto.getActors().forEach(uuid -> actorRepository.findById(uuid).ifPresent(actors::add));
         if (actors.isEmpty()) return new ApiResponse("Actors is empty!",false);
