@@ -4,6 +4,7 @@ import lombok.*;
 import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -14,31 +15,40 @@ import java.util.List;
 @Entity
 public class Movie extends AbsEntity {
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, length = 50)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "text")
     private String description;
 
     @Column(nullable = false)
     private Integer durationInMinutes;
 
-    @OneToMany
-    private List<Attachment> cover_image;
+    @Column(nullable = false)
+    private Double min_price;
 
-    @OneToMany
-    private List<Attachment> trailer_video;
+    @OneToOne
+    private Attachment coverImg;
 
-    @OneToMany
+    @OneToOne
+    private Attachment trailerVideo;
+
+    @Column(nullable = false)
+    private Date releaseDate;
+
+    @Column(nullable = false)
+    private Double budget;
+
+    @ManyToMany
+    private List<Actor> actors;
+
+    @ManyToMany
     private List<Director> directors;
 
     @ManyToMany
     private List<Genre> genres;
 
-    @Column(nullable = false)
-    private Double min_price;
-
-    @OneToOne
+    @ManyToOne
     private Distributor distributor;
 
     @Column(nullable = false)
