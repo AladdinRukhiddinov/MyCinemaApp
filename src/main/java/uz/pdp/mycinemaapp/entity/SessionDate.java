@@ -14,10 +14,8 @@ import java.util.Date;
 @Entity(name = "session_dates")
 public class SessionDate extends AbsEntity {
 
-    @ManyToOne
-    private SessionsHall sessionsHall;
-
     @Column(nullable = false)
     private Date date;
+
 }
 

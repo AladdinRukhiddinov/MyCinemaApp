@@ -12,12 +12,21 @@ import javax.persistence.ManyToOne;
 @Setter
 @Getter
 @Entity(name = "sessions_halls")
-public class SessionsHall extends AbsEntity {
+public class ReservedHall extends AbsEntity {
 
     @ManyToOne
-    private MovieSession movieSession;
+    private Afisha afisha;
 
     @ManyToOne
     private Hall hall;
+
+    @ManyToOne
+    private SessionDate startDate;
+
+    @ManyToOne
+    private SessionTime startTime;
+
+    @ManyToOne
+    private SessionTime endTime;
 }
 

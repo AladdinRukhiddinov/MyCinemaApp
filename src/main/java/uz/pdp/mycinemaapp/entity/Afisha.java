@@ -6,6 +6,7 @@ import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -13,9 +14,9 @@ import javax.persistence.ManyToOne;
 @Setter
 @Getter
 @Entity(name = "movie_sessions")
-public class MovieSession extends AbsEntity {
+public class Afisha extends AbsEntity {
 
-    @ManyToOne
+    @OneToOne
     private Movie movie;
 
     @Column(nullable = false)

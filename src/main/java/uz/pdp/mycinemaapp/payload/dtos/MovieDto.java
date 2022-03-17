@@ -1,6 +1,5 @@
 package uz.pdp.mycinemaapp.payload.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -31,7 +30,7 @@ public class MovieDto {
     private UUID trailerVideoId;
 
     @NotBlank(message = "Release date can't be empty!")
-    private Date releaseDate;
+    private String releaseDate;
 
     private Double budget;
 

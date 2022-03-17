@@ -78,7 +78,7 @@ public class ActorService {
             attachmentContent.setBytes(file.getBytes());
             attachmentContent.setAttachment(saveAttachment);
             attachmentContentRepository.save(attachmentContent);
-            actor.setAttachment(saveAttachment);
+            editingActor.setAttachment(saveAttachment);
             Actor saveActor = actorRepository.save(editingActor);
             return new ApiResponse("Successfully edited!", true, saveActor);
         } catch (Exception e) {

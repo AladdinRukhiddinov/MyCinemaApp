@@ -17,6 +17,6 @@ public class NightSessionAddFee extends AbsEntity {
     @Column(nullable = false)
     private Double percentage;
 
-    @Column(nullable = false)
-    private Date date;
+    @ManyToOne
+    private SessionTime time;
 }

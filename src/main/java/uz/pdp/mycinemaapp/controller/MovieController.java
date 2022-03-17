@@ -9,6 +9,7 @@ import uz.pdp.mycinemaapp.payload.dtos.MovieDto;
 import uz.pdp.mycinemaapp.service.MovieServiceImpl;
 import uz.pdp.mycinemaapp.util.Constants;
 
+import java.text.ParseException;
 import java.util.UUID;
 
 @RestController
@@ -42,7 +43,7 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public HttpEntity<?> editMovie(@PathVariable UUID id, @RequestBody MovieDto movieDto) {
+    public HttpEntity<?> editMovie(@PathVariable UUID id, @RequestBody MovieDto movieDto) throws ParseException {
         ApiResponse apiResponse = movieService.editMovie(id, movieDto);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 409).body(apiResponse);
     }

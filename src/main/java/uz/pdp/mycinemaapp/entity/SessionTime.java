@@ -17,7 +17,5 @@ public class SessionTime extends AbsEntity {
     @Column(nullable = false)
     private Timestamp time;
 
-    @ManyToOne
-    private SessionDate sessionDate;
 }
 

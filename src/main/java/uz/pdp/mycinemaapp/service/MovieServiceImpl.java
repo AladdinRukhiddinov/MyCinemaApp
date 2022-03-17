@@ -14,14 +14,11 @@ import uz.pdp.mycinemaapp.projection.CustomMovie;
 import uz.pdp.mycinemaapp.repository.*;
 import uz.pdp.mycinemaapp.service.interfaces.MovieService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class MovieServiceImpl implements MovieService {
 
     private final MovieRepository movieRepository;
@@ -77,11 +74,13 @@ public class MovieServiceImpl implements MovieService {
             Movie movie = new Movie();
             movie.setTitle(movieDto.getTitle());
             movie.setDescription(movieDto.getDescription());
-            movie.setDurationInMinutes(movie.getDurationInMinutes());
+            movie.setDurationInMinutes(movieDto.getDurationInMin());
             movie.setMin_price(movieDto.getMinPrice());
             movie.setCoverImg(optionalAttachmentImg.get());
             movie.setTrailerVideo(optionalAttachmentVideo.get());
-            movie.setReleaseDate(movieDto.getReleaseDate());
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = formatter.parse(movieDto.getReleaseDate());
+            movie.setReleaseDate(date);
             movie.setBudget(movieDto.getBudget());
             movie.setDistributor(optionalDistributor.get());
             movie.setDistributor_share_in_percent(movieDto.getDistributorShareInPercentage());
@@ -129,7 +128,9 @@ public class MovieServiceImpl implements MovieService {
             movie.setMin_price(movieDto.getMinPrice());
             movie.setCoverImg(optionalAttachmentImg.get());
             movie.setTrailerVideo(optionalAttachmentVideo.get());
-            movie.setReleaseDate(movieDto.getReleaseDate());
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = formatter.parse(movieDto.getReleaseDate());
+            movie.setReleaseDate(date);
             movie.setBudget(movieDto.getBudget());
             movie.setDistributor(optionalDistributor.get());
             movie.setDistributor_share_in_percent(movieDto.getDistributorShareInPercentage());
