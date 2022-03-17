@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 public class ReservedHall extends AbsEntity {
 
     @ManyToOne
-    private Afisha afisha;
+    private MovieSchedule movieSchedule;
 
     @ManyToOne
     private Hall hall;

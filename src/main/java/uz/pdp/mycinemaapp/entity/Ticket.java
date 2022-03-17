@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Ticket extends AbsEntity {
 
     @OneToOne
-    private MovieSession movieSession;
+    private MovieSchedule movieSchedule;
 
     @OneToOne
     private Seat seat;

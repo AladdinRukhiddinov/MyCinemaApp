@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 @Setter
 @Getter
 @Entity(name = "movie_sessions")
-public class Afisha extends AbsEntity {
+public class MovieSchedule extends AbsEntity {
 
     @OneToOne
     private Movie movie;
