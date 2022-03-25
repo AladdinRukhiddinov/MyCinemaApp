@@ -23,10 +23,10 @@ public class MovieDto {
     @NotBlank(message = "Minimum price can't be empty!")
     private Double minPrice;
 
-    @NotBlank(message = "Image can't be empty!")
+    @NotNull(message = "Image can't be empty!")
     private UUID coverImgId;
 
-    @NotBlank(message = "Trailer video can't be empty!")
+    @NotNull(message = "Trailer video can't be empty!")
     private UUID trailerVideoId;
 
     @NotBlank(message = "Release date can't be empty!")

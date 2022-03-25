@@ -11,11 +11,11 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @Setter
 @Getter
-@Entity(name = "sessions_halls")
-public class ReservedHall extends AbsEntity {
+@Entity(name = "Movie_sessions")
+public class MovieSession extends AbsEntity {
 
     @ManyToOne
-    private MovieSchedule movieSchedule;
+    private MovieAnnouncement movieAnnouncement;
 
     @ManyToOne
     private Hall hall;
@@ -28,5 +28,6 @@ public class ReservedHall extends AbsEntity {
 
     @ManyToOne
     private SessionTime endTime;
+
 }
 

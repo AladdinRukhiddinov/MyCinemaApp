@@ -36,19 +36,19 @@ public class RowController {
     }
 
     @PostMapping("/{id}")
-    public HttpEntity<?> addHall(@PathVariable UUID id, @RequestBody Row row) {
+    public HttpEntity<?> addRow(@PathVariable UUID id, @RequestBody Row row) {
         ApiResponse apiResponse = rowService.addRow(id, row);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 409).body(apiResponse);
     }
 
     @PutMapping("/{id}")
-    public HttpEntity<?> editHall(@PathVariable UUID id, @RequestBody Row row) {
+    public HttpEntity<?> editRow(@PathVariable UUID id, @RequestBody Row row) {
         ApiResponse apiResponse = rowService.editRow(id, row);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 409).body(apiResponse);
     }
 
     @DeleteMapping("/{id}")
-    public HttpEntity<?> deleteHall(@PathVariable UUID id) {
+    public HttpEntity<?> deleteRow(@PathVariable UUID id) {
         ApiResponse apiResponse = rowService.deleteRow(id);
         return ResponseEntity.status(apiResponse.isStatus() ? 200 : 404).body(apiResponse);
     }

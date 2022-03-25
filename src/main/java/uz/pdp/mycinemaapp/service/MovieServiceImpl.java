@@ -6,7 +6,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.mycinemaapp.entity.*;
 import uz.pdp.mycinemaapp.payload.ApiResponse;
 import uz.pdp.mycinemaapp.payload.dtos.MovieDto;
@@ -14,8 +13,11 @@ import uz.pdp.mycinemaapp.projection.CustomMovie;
 import uz.pdp.mycinemaapp.repository.*;
 import uz.pdp.mycinemaapp.service.interfaces.MovieService;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -52,24 +54,24 @@ public class MovieServiceImpl implements MovieService {
     public ApiResponse addMovie(MovieDto movieDto) {
         List<Actor> actors = new ArrayList<>();
         movieDto.getActors().forEach(uuid -> actorRepository.findById(uuid).ifPresent(actors::add));
-        if (actors.isEmpty()) return new ApiResponse("Actors is empty!",false);
+        if (actors.isEmpty()) return new ApiResponse("Actors is empty!", false);
 
         List<Director> directors = new ArrayList<>();
         movieDto.getDirectors().forEach(uuid -> directorRepository.findById(uuid).ifPresent(directors::add));
-        if (directors.isEmpty()) return new ApiResponse("Directors is empty!",false);
+        if (directors.isEmpty()) return new ApiResponse("Directors is empty!", false);
 
         List<Genre> genres = new ArrayList<>();
         movieDto.getGenres().forEach(uuid -> genreRepository.findById(uuid).ifPresent(genres::add));
-        if (genres.isEmpty()) return new ApiResponse("Genres is empty!",false);
+        if (genres.isEmpty()) return new ApiResponse("Genres is empty!", false);
 
         Optional<Attachment> optionalAttachmentImg = attachmentRepository.findById(movieDto.getCoverImgId());
-        if (optionalAttachmentImg.isEmpty()) return new ApiResponse("Cover image is empty!",false);
+        if (optionalAttachmentImg.isEmpty()) return new ApiResponse("Cover image is empty!", false);
 
         Optional<Attachment> optionalAttachmentVideo = attachmentRepository.findById(movieDto.getTrailerVideoId());
-        if (optionalAttachmentVideo.isEmpty()) return new ApiResponse("Trailer video is empty!",false);
+        if (optionalAttachmentVideo.isEmpty()) return new ApiResponse("Trailer video is empty!", false);
 
         Optional<Distributor> optionalDistributor = distributorRepository.findById(movieDto.getDistributorId());
-        if (optionalDistributor.isEmpty()) return new ApiResponse("Distributor is empty!",false);
+        if (optionalDistributor.isEmpty()) return new ApiResponse("Distributor is empty!", false);
         try {
             Movie movie = new Movie();
             movie.setTitle(movieDto.getTitle());
@@ -78,9 +80,7 @@ public class MovieServiceImpl implements MovieService {
             movie.setMin_price(movieDto.getMinPrice());
             movie.setCoverImg(optionalAttachmentImg.get());
             movie.setTrailerVideo(optionalAttachmentVideo.get());
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            Date date = formatter.parse(movieDto.getReleaseDate());
-            movie.setReleaseDate(date);
+            movie.setReleaseDate(LocalDate.parse(movieDto.getReleaseDate()));
             movie.setBudget(movieDto.getBudget());
             movie.setDistributor(optionalDistributor.get());
             movie.setDistributor_share_in_percent(movieDto.getDistributorShareInPercentage());
@@ -88,37 +88,37 @@ public class MovieServiceImpl implements MovieService {
             movie.setDirectors(directors);
             movie.setGenres(genres);
             Movie saveMovie = movieRepository.save(movie);
-            return new ApiResponse("Successfully added!",true,saveMovie);
-        }catch (Exception e) {
-            return new ApiResponse("Error!!",false);
+            return new ApiResponse("Successfully added!", true, saveMovie);
+        } catch (Exception e) {
+            return new ApiResponse("Error!!", false);
         }
     }
 
     @Override
     public ApiResponse editMovie(UUID id, MovieDto movieDto) {
         Optional<Movie> optionalMovie = movieRepository.findById(id);
-        if (optionalMovie.isEmpty()) return new ApiResponse("Movie not found!",false);
+        if (optionalMovie.isEmpty()) return new ApiResponse("Movie not found!", false);
 
         List<Actor> actors = new ArrayList<>();
         movieDto.getActors().forEach(uuid -> actorRepository.findById(uuid).ifPresent(actors::add));
-        if (actors.isEmpty()) return new ApiResponse("Actors is empty!",false);
+        if (actors.isEmpty()) return new ApiResponse("Actors is empty!", false);
 
         List<Director> directors = new ArrayList<>();
         movieDto.getDirectors().forEach(uuid -> directorRepository.findById(uuid).ifPresent(directors::add));
-        if (directors.isEmpty()) return new ApiResponse("Directors is empty!",false);
+        if (directors.isEmpty()) return new ApiResponse("Directors is empty!", false);
 
         List<Genre> genres = new ArrayList<>();
         movieDto.getGenres().forEach(uuid -> genreRepository.findById(uuid).ifPresent(genres::add));
-        if (genres.isEmpty()) return new ApiResponse("Genres is empty!",false);
+        if (genres.isEmpty()) return new ApiResponse("Genres is empty!", false);
 
         Optional<Attachment> optionalAttachmentImg = attachmentRepository.findById(movieDto.getCoverImgId());
-        if (optionalAttachmentImg.isEmpty()) return new ApiResponse("Cover image is empty!",false);
+        if (optionalAttachmentImg.isEmpty()) return new ApiResponse("Cover image is empty!", false);
 
         Optional<Attachment> optionalAttachmentVideo = attachmentRepository.findById(movieDto.getTrailerVideoId());
-        if (optionalAttachmentVideo.isEmpty()) return new ApiResponse("Trailer video is empty!",false);
+        if (optionalAttachmentVideo.isEmpty()) return new ApiResponse("Trailer video is empty!", false);
 
         Optional<Distributor> optionalDistributor = distributorRepository.findById(movieDto.getDistributorId());
-        if (optionalDistributor.isEmpty()) return new ApiResponse("Distributor is empty!",false);
+        if (optionalDistributor.isEmpty()) return new ApiResponse("Distributor is empty!", false);
 
         try {
             Movie movie = optionalMovie.get();
@@ -128,9 +128,7 @@ public class MovieServiceImpl implements MovieService {
             movie.setMin_price(movieDto.getMinPrice());
             movie.setCoverImg(optionalAttachmentImg.get());
             movie.setTrailerVideo(optionalAttachmentVideo.get());
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            Date date = formatter.parse(movieDto.getReleaseDate());
-            movie.setReleaseDate(date);
+            movie.setReleaseDate(LocalDate.parse(movieDto.getReleaseDate()));
             movie.setBudget(movieDto.getBudget());
             movie.setDistributor(optionalDistributor.get());
             movie.setDistributor_share_in_percent(movieDto.getDistributorShareInPercentage());
@@ -138,9 +136,9 @@ public class MovieServiceImpl implements MovieService {
             movie.setDirectors(directors);
             movie.setGenres(genres);
             Movie saveMovie = movieRepository.save(movie);
-            return new ApiResponse("Successfully edited!",true,saveMovie);
-        }catch (Exception e) {
-            return new ApiResponse("Error!!",false);
+            return new ApiResponse("Successfully edited!", true, saveMovie);
+        } catch (Exception e) {
+            return new ApiResponse("Error!!", false);
         }
 
     }
@@ -150,7 +148,7 @@ public class MovieServiceImpl implements MovieService {
         try {
             movieRepository.deleteById(id);
             return new ApiResponse("Success!", true);
-        } catch (Exception e){
+        } catch (Exception e) {
             return new ApiResponse("Movie not found!", false);
         }
     }

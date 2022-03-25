@@ -21,4 +21,6 @@ public interface MovieRepository extends JpaRepository<Movie, UUID> {
             "where lower(title) like lower(concat('%', :search, '%'))", nativeQuery = true)
     Page<CustomMovie> findAllByPage(Pageable pageable, @Param("search") String search);
 
+    boolean existsMovieById(UUID id);
+
 }

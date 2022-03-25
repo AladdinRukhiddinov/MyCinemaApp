@@ -4,6 +4,7 @@ import lombok.*;
 import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
@@ -23,5 +24,5 @@ public class PurchaseHistory extends AbsEntity {
     @OneToOne
     private PayType payType;
 
-    private Date date;
+    private LocalDate date;
 }

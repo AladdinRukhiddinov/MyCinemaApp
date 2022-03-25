@@ -4,6 +4,7 @@ import lombok.*;
 import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class Movie extends AbsEntity {
     private Attachment trailerVideo;
 
     @Column(nullable = false)
-    private Date releaseDate;
+    private LocalDate releaseDate;
 
     @Column(nullable = false)
     private Double budget;

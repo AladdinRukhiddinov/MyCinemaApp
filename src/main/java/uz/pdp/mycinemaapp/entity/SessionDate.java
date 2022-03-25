@@ -3,8 +3,9 @@ package uz.pdp.mycinemaapp.entity;
 import lombok.*;
 import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -15,7 +16,7 @@ import java.util.Date;
 public class SessionDate extends AbsEntity {
 
     @Column(nullable = false)
-    private Date date;
+    private LocalDate date;
 
 }
 

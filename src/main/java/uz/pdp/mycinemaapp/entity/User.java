@@ -5,6 +5,7 @@ import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 import uz.pdp.mycinemaapp.entity.enums.Gender;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class User extends AbsEntity {
     private String password;
 
     @Column(nullable = false)
-    private Date date_of_birth;
+    private LocalDate date_of_birth;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;

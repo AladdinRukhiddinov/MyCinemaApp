@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -15,10 +16,10 @@ public class SeatDto {
     @NotBlank(message = "Number can't be empty!")
     private Integer number;
 
-    @NotBlank(message = "Row can't be empty!")
+    @NotNull(message = "Row can't be empty!")
     private UUID rowId;
 
-    @NotBlank(message = "Price category can't be empty!")
+    @NotNull(message = "Price category can't be empty!")
     private UUID priceCategoryId;
 
 }
