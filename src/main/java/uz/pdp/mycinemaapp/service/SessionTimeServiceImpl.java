@@ -18,7 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SessionTimeServiceImpl implements SessionTimeService {
 
-    private SessionTimeRepository sessionTimeRepository;
+    private final SessionTimeRepository sessionTimeRepository;
 
     @Override
     public ApiResponse getAllSessionTimes() {

@@ -11,6 +11,7 @@ import uz.pdp.mycinemaapp.payload.ApiResponse;
 import uz.pdp.mycinemaapp.repository.SessionDateRepository;
 import uz.pdp.mycinemaapp.service.interfaces.SessionDateService;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Service
@@ -18,7 +19,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SessionDateServiceImpl implements SessionDateService {
 
-    private SessionDateRepository sessionDateRepository;
+    private final SessionDateRepository sessionDateRepository;
 
     @Override
     public ApiResponse getAllSessionDates() {
@@ -33,25 +34,24 @@ public class SessionDateServiceImpl implements SessionDateService {
 
     @Override
     public ApiResponse addSessionDate(SessionDate date) {
-        try {
-            SessionDate newDate = new SessionDate(date.getDate());
-            SessionDate save = sessionDateRepository.save(newDate);
+        if (sessionDateRepository.existsByDate(date.getDate()))
+            throw new RestException(MessageService.getMessage("DATE_ALREADY_EXISTS"),HttpStatus.CONFLICT);
+
+            SessionDate save = sessionDateRepository.save(new SessionDate(date.getDate()));
             return new ApiResponse(MessageService.getMessage("DATE_SAVED"),true,save);
-        } catch (RestException e){
-            throw new RestException(MessageService.getMessage("MY_ERROR"),HttpStatus.CONFLICT);
-        }
+
     }
 
     @Override
     public ApiResponse editSessionDate(UUID id, SessionDate date) {
         SessionDate sessionDate = sessionDateRepository.findById(id).orElseThrow(() -> new RestException(MessageService.getMessage("DATE_NOT_FOUND"), HttpStatus.NOT_FOUND));
-        try{
+        if (sessionDateRepository.existsByDate(date.getDate()))
+            throw new RestException(MessageService.getMessage("DATE_ALREADY_EXISTS"),HttpStatus.CONFLICT);
+
             sessionDate.setDate(date.getDate());
             SessionDate save = sessionDateRepository.save(sessionDate);
             return new ApiResponse(MessageService.getMessage("DATE_EDITED"),true,save);
-        } catch (RestException e){
-            throw new RestException(MessageService.getMessage("DATE_ALREADY_EXISTS"),HttpStatus.CONFLICT);
-        }
+
     }
 
     @Override
