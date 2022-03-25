@@ -31,7 +31,7 @@ public class AttachmentService {
         try {
             Attachment savedAttachment = attachmentRepository.save(new Attachment(file.getOriginalFilename(), file.getSize(), file.getContentType()));
             attachmentContentRepository.save(new AttachmentContent(file.getBytes(), savedAttachment));
-            return new ApiResponse("Successfully uploaded!!!", true);
+            return new ApiResponse("Successfully uploaded!!!", true, savedAttachment);
         } catch (IOException e) {
             return new ApiResponse("Error!!!", false);
         }

@@ -2,6 +2,7 @@ package uz.pdp.mycinemaapp.entity;
 
 import lombok.*;
 import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
+import uz.pdp.mycinemaapp.entity.enums.MovieStatus;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -54,4 +55,7 @@ public class Movie extends AbsEntity {
 
     @Column(nullable = false)
     private Double distributor_share_in_percent;
+
+    @Enumerated(value = EnumType.STRING)
+    private MovieStatus status;
 }

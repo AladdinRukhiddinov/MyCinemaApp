@@ -29,4 +29,6 @@ public class Hall extends AbsEntity {
         this.vip_additional_fee_in_percent = vip_additional_fee_in_percent;
         this.rowList = rowList;
     }
+
+
 }

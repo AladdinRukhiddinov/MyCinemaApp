@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Entity(name = "session_dates")
 public class SessionDate extends AbsEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private LocalDate date;
 
 }
