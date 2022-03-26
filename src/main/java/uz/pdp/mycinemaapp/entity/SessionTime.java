@@ -3,8 +3,9 @@ package uz.pdp.mycinemaapp.entity;
 import lombok.*;
 import uz.pdp.mycinemaapp.entity.baseEntity.AbsEntity;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import java.time.LocalTime;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -14,8 +15,8 @@ import java.sql.Timestamp;
 @Entity(name = "session_times")
 public class SessionTime extends AbsEntity {
 
-    @Column(nullable = false)
-    private Timestamp time;
+    @Column(nullable = false, unique = true)
+    private LocalTime time;
 
 }
 

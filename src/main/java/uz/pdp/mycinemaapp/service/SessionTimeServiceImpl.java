@@ -33,25 +33,23 @@ public class SessionTimeServiceImpl implements SessionTimeService {
 
     @Override
     public ApiResponse addSessionTime(SessionTime date) {
-        try {
-            SessionTime newTime = new SessionTime(date.getTime());
-            SessionTime save = sessionTimeRepository.save(newTime);
+        if (sessionTimeRepository.existsByTime(date.getTime()))
+            throw new RestException(MessageService.getMessage("TIME_ALREADY_EXISTS"),HttpStatus.CONFLICT);
+
+            SessionTime save = sessionTimeRepository.save(new SessionTime(date.getTime()));
             return new ApiResponse(MessageService.getMessage("TIME_SAVED"),true,save);
-        } catch (RestException e){
-            throw new RestException(MessageService.getMessage("MY_ERROR"),HttpStatus.CONFLICT);
-        }
+
     }
 
     @Override
     public ApiResponse editSessionTime(UUID id, SessionTime date) {
         SessionTime sessionTime = sessionTimeRepository.findById(id).orElseThrow(() -> new RestException(MessageService.getMessage("TIME_NOT_FOUND"), HttpStatus.NOT_FOUND));
-        try{
+        if (sessionTimeRepository.existsByTime(date.getTime()))
+            throw new RestException(MessageService.getMessage("TIME_ALREADY_EXISTS"),HttpStatus.CONFLICT);
+
             sessionTime.setTime(date.getTime());
             SessionTime save = sessionTimeRepository.save(sessionTime);
             return new ApiResponse(MessageService.getMessage("TIME_EDITED"),true,save);
-        } catch (RestException e){
-            throw new RestException(MessageService.getMessage("TIME_ALREADY_EXISTS"),HttpStatus.CONFLICT);
-        }
     }
 
     @Override
