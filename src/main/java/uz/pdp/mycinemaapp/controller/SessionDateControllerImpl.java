@@ -5,7 +5,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import uz.pdp.mycinemaapp.controller.controllerInterfaces.SessionDateController;
-import uz.pdp.mycinemaapp.entity.SessionDate;
+import uz.pdp.mycinemaapp.payload.dtos.SessionDateDto;
 import uz.pdp.mycinemaapp.service.SessionDateServiceImpl;
 
 import java.util.UUID;
@@ -27,13 +27,13 @@ public class SessionDateControllerImpl implements SessionDateController {
     }
 
     @Override
-    public HttpEntity<?> addSessionDate(SessionDate date) {
-        return ResponseEntity.ok(sessionDateService.addSessionDate(date));
+    public HttpEntity<?> addSessionDate(SessionDateDto dto) {
+        return ResponseEntity.ok(sessionDateService.addSessionDate(dto));
     }
 
     @Override
-    public HttpEntity<?> editSessionDate(UUID id, SessionDate date) {
-        return ResponseEntity.ok(sessionDateService.editSessionDate(id,date));
+    public HttpEntity<?> editSessionDate(UUID id, SessionDateDto dto) {
+        return ResponseEntity.ok(sessionDateService.editSessionDate(id, dto));
     }
 
     @Override

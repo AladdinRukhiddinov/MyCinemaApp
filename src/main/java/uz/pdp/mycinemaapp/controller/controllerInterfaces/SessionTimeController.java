@@ -3,6 +3,7 @@ package uz.pdp.mycinemaapp.controller.controllerInterfaces;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.mycinemaapp.entity.SessionTime;
+import uz.pdp.mycinemaapp.payload.dtos.SessionTimeDto;
 
 import java.util.UUID;
 
@@ -20,10 +21,10 @@ public interface SessionTimeController {
     HttpEntity<?> getSessionTime(@PathVariable UUID id);
 
     @PostMapping
-    HttpEntity<?> addSessionTime(@RequestBody SessionTime date);
+    HttpEntity<?> addSessionTime(@RequestBody SessionTimeDto dto);
 
     @PutMapping("/{id}")
-    HttpEntity<?> editSessionTime(@PathVariable UUID id, @RequestBody SessionTime date);
+    HttpEntity<?> editSessionTime(@PathVariable UUID id, @RequestBody SessionTimeDto dto);
 
     @DeleteMapping("/{id}")
     HttpEntity<?> deleteSessionTime(@PathVariable UUID id);
