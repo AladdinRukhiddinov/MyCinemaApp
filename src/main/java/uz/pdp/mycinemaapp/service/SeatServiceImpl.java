@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.mycinemaapp.entity.Seat;
 import uz.pdp.mycinemaapp.payload.ApiResponse;
 import uz.pdp.mycinemaapp.payload.dtos.SeatDto;
+import uz.pdp.mycinemaapp.projection.AvailableSeatsProjection;
 import uz.pdp.mycinemaapp.repository.PriceCategoryRepository;
 import uz.pdp.mycinemaapp.repository.RowRepository;
 import uz.pdp.mycinemaapp.repository.SeatRepository;
@@ -26,6 +27,12 @@ public class SeatServiceImpl implements SeatService {
     private final SeatRepository seatRepository;
     private final RowRepository rowRepository;
     private final PriceCategoryRepository priceCategoryRepository;
+
+    @Override
+    public ApiResponse getAvailableSeatsByMovieSessionId(UUID movieSessionId) {
+        List<AvailableSeatsProjection> availableSeatsBySessionId = seatRepository.getAvailableSeatsBySessionId(movieSessionId);
+        return new ApiResponse("success", true, availableSeatsBySessionId);
+    }
 
     @Override
     public ApiResponse getAllSeatsByPage(int page, int size) {

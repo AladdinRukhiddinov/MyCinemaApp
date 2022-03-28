@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import uz.pdp.mycinemaapp.entity.Movie;
 import uz.pdp.mycinemaapp.projection.CustomMovie;
+import uz.pdp.mycinemaapp.projection.CustomMovieById;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface MovieRepository extends JpaRepository<Movie, UUID> {
@@ -22,5 +24,16 @@ public interface MovieRepository extends JpaRepository<Movie, UUID> {
     Page<CustomMovie> findAllByPage(Pageable pageable, @Param("search") String search);
 
     boolean existsMovieById(UUID id);
+
+    @Query(nativeQuery = true, value = "select" +
+            " cast(m.id as varchar)            as id,\n" +
+            "       m.title,\n" +
+            "       m.release_date                   as releaseDate,\n" +
+            "       cast(m.cover_img_id as varchar) as coverImgId\n" +
+            //todo add more columns
+            "from movie m " +
+            "where m.id = :id")
+    Optional<CustomMovieById> getMovieById(UUID id);
+
 
 }

@@ -20,14 +20,14 @@ import java.util.UUID;
 public class RowService {
 
     private final RowRepository rowRepository;
-    private HallRepository hallRepository;
+    private final HallRepository hallRepository;
 
     public ApiResponse getRowsByHallId(UUID id) {
         Optional<Hall> optionalHall = hallRepository.findById(id);
         if (optionalHall.isEmpty()) {
             return new ApiResponse("Hall not found!!", false);
         }
-        List<RowProjection> rowsByHallId = rowRepository.ketmon(id);
+        List<RowProjection> rowsByHallId = rowRepository.getRowsByHallId(id);
         if (rowsByHallId.size() == 0) {
             return new ApiResponse("List empty!", false);
         }

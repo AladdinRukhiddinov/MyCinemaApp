@@ -21,7 +21,7 @@ public class MovieController {
 
     @GetMapping
     public HttpEntity<?> getAllMovies(
-            @RequestParam(name = "page", defaultValue = Constants.DEFAULT_PAGE_SIZE) int page,
+            @RequestParam(name = "page", defaultValue = Constants.DEFAULT_SIZE) int page,
             @RequestParam(name = "size", defaultValue = "1") int size,
             @RequestParam(name = "search", defaultValue = "") String search,
             @RequestParam(name = "sort", defaultValue = "title") String sort

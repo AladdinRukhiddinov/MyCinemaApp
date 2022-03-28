@@ -19,7 +19,7 @@ public interface MovieAnnouncementController {
 
     @GetMapping()
     HttpEntity<?> getAllMovieAnnouncements(@RequestParam(name = "page", defaultValue = DEFAULT_PAGE_NUMBER) int page,
-                                        @RequestParam(name = "size", defaultValue = DEFAULT_PAGE_SIZE) int size);
+                                        @RequestParam(name = "size", defaultValue = DEFAULT_SIZE) int size);
 
     @PostMapping
     HttpEntity<?> addMovieAnnouncement(@RequestBody MovieAnnouncementDto dto);

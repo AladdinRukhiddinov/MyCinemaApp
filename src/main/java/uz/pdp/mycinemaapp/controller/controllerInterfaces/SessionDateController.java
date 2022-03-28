@@ -2,7 +2,6 @@ package uz.pdp.mycinemaapp.controller.controllerInterfaces;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
-import uz.pdp.mycinemaapp.entity.SessionDate;
 import uz.pdp.mycinemaapp.payload.dtos.SessionDateDto;
 
 import java.util.UUID;

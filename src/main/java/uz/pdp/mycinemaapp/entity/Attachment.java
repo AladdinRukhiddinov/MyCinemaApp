@@ -23,8 +23,8 @@ public class Attachment extends AbsEntity {
     private String originalName;
 
     public Attachment(String name, long size, String contentType) {
+        this.contentType = contentType;
         this.originalName = name;
         this.size = size;
-        this.contentType = contentType;
     }
 }

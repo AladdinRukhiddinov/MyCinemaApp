@@ -19,9 +19,14 @@ public class SeatController {
     private final SeatServiceImpl seatService;
 
     @GetMapping("/getAllSeatsByPage")
-    public HttpEntity<?> getAllSeatsByPage(@RequestParam(name = "page") int page, @RequestParam(name = "size",defaultValue = Constants.DEFAULT_PAGE_SIZE) int size) {
+    public HttpEntity<?> getAllSeatsByPage(@RequestParam(name = "page") int page, @RequestParam(name = "size",defaultValue = Constants.DEFAULT_SIZE) int size) {
         ApiResponse allSeatsByPage = seatService.getAllSeatsByPage(page, size);
         return ResponseEntity.status(allSeatsByPage.isStatus() ? 200 : 409).body(allSeatsByPage);
+    }
+
+    @GetMapping("/available-seats/{movieSessionId}")
+    public HttpEntity<?> getAvailableSeatsBySessionId(@PathVariable UUID movieSessionId) {
+        return ResponseEntity.ok(seatService.getAvailableSeatsByMovieSessionId(movieSessionId));
     }
 
     @GetMapping

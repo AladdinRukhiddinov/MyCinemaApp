@@ -21,8 +21,8 @@ public class PurchaseHistory extends AbsEntity {
     @OneToOne
     private Ticket ticket;
 
-    @OneToOne
-    private PayType payType;
-
-    private LocalDate date;
+//    @OneToOne
+//    private PayType payType;
+//
+//    private LocalDate date;
 }

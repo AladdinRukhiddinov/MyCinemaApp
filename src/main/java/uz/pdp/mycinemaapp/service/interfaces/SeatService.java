@@ -15,6 +15,6 @@ public interface SeatService {
     ApiResponse addSeat(SeatDto seatDto);
     ApiResponse editSeat(UUID seatId,SeatDto seatDto);
     ApiResponse deleteSeat(UUID seatId);
-
+    ApiResponse getAvailableSeatsByMovieSessionId(UUID movieSessionId);
 
 }
