@@ -28,7 +28,7 @@ public class MovieSessionControllerImpl implements MovieSessionController {
 
     @Override
     public HttpEntity<?> addMovieSession(MovieSessionDto dto) {
-        return null;
+        return ResponseEntity.ok(movieSessionService.addMovieSession(dto));
     }
 
     @Override

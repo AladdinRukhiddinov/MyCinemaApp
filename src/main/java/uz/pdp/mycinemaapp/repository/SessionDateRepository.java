@@ -10,4 +10,6 @@ import java.util.UUID;
 @Repository
 public interface SessionDateRepository extends JpaRepository<SessionDate, UUID> {
     boolean existsByDate(LocalDate date);
+
+    SessionDate getSessionDateByDate(LocalDate date);
 }

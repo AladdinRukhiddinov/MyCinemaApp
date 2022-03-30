@@ -18,6 +18,7 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class TicketServiceImpl implements TicketService {
+    // TODO: 3/28/2022 Bugunoq tugat!
 
     private final TicketRepository ticketRepository;
     private final MovieSessionRepository movieSessionRepository;
@@ -100,7 +101,6 @@ public class TicketServiceImpl implements TicketService {
         ticket.setStatus(TicketStatus.PURCHASED);
         ticket.setUser(null);
         ticketRepository.save(ticket);
-
 
         return new ApiResponse(MessageService.getMessage("TICKET_SAVED"), true);
 

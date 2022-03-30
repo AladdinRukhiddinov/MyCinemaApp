@@ -1,6 +1,7 @@
 package uz.pdp.mycinemaapp.projection;
 
 import org.springframework.data.rest.core.config.Projection;
+import uz.pdp.mycinemaapp.entity.Hall;
 import uz.pdp.mycinemaapp.entity.Row;
 import uz.pdp.mycinemaapp.entity.Seat;
 

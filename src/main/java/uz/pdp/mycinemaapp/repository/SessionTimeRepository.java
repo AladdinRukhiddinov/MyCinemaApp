@@ -17,7 +17,7 @@ public interface SessionTimeRepository extends JpaRepository<SessionTime, UUID> 
 
     @Query(value = "select distinct " +
             "cast(st.id as varchar) as id,\n" +
-            "cast(ms.id as varchar) as sessionId,\n" +
+            "cast(ms.id as varchar) as movieSessionId,\n" +
             "       time\n" +
             "from session_times st\n" +
             "         join movie_sessions ms on st.id = ms.start_time_id\n" +
@@ -25,6 +25,8 @@ public interface SessionTimeRepository extends JpaRepository<SessionTime, UUID> 
             "  and movie_announcement_id = :movieAnnouncementId " +
             "and ms.start_date_id = :startDateId", nativeQuery = true)
     List<SessionTimeProjection> getTimesByHallIdAndAnnouncementIdAndStartDateId(UUID hallId, UUID movieAnnouncementId, UUID startDateId);
+
+    SessionTime getSessionTimeByTime(LocalTime time);
 
 
 }
