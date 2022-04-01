@@ -23,7 +23,7 @@ public class MovieSessionControllerImpl implements MovieSessionController {
 
     @Override
     public HttpEntity<?> getMovieSessionById(UUID id) {
-        return null;
+        return ResponseEntity.ok(movieSessionService.getMovieSessionById(id));
     }
 
     @Override

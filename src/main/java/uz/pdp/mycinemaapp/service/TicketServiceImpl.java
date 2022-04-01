@@ -58,6 +58,7 @@ public class TicketServiceImpl implements TicketService {
         return new ApiResponse("success", true, ticketsByUserId);
     }
 
+
     @Override
     public Double getTicketFinalPrice(MovieSession movieSession, Seat seat) {
         // TODO: 3/28/2022 CALCULATE TICKET FINAL PRICE
@@ -81,7 +82,7 @@ public class TicketServiceImpl implements TicketService {
 
             Timer timer = new Timer();
 //            long delayTime =  THIRTY_MINUTES_IN_MILLISECOND;
-            long delayTime = 15000;
+            long delayTime = 1000*60*60*10;
             System.out.println("Scheduler started..." + new Date());
             System.out.println("Delay: " + delayTime);
             timer.schedule(timerTask, delayTime);
@@ -92,17 +93,17 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public ApiResponse purchaseTicket(UUID ticketId) {
-        Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(() ->
-                new RestException(MessageService.getMessage("TICKET_NOT_FOUND"),HttpStatus.NOT_FOUND));
+    public ApiResponse purchaseTicket(UUID userId) {
 
-        purchaseHistoryRepository.save(new PurchaseHistory(ticket.getUser(), ticket));
+        List<TicketProjection> ticketByUserIdList = ticketRepository.getTicketByUserId(userId);
 
-        ticket.setStatus(TicketStatus.PURCHASED);
-        ticket.setUser(null);
-        ticketRepository.save(ticket);
-
-        return new ApiResponse(MessageService.getMessage("TICKET_SAVED"), true);
+        for (TicketProjection ticketProjection : ticketByUserIdList) {
+            Ticket editedTicket = ticketRepository.getById(ticketProjection.getId());
+            editedTicket.setStatus(TicketStatus.PURCHASED);
+            Ticket ticket = ticketRepository.save(editedTicket);
+            purchaseHistoryRepository.save(new PurchaseHistory(userRepository.getById(userId),ticket));
+        }
+        return new ApiResponse(MessageService.getMessage("SUCCESS"), true);
 
     }
 

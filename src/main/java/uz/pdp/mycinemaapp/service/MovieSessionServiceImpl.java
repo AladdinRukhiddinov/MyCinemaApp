@@ -54,18 +54,15 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     @Override
     public ApiResponse addMovieSession(MovieSessionDto dto) {
 
+        MovieAnnouncement movieAnnouncement = movieAnnouncementRepository.findById(dto.getMovieAnnouncementId()).orElseThrow(() -> new RestException(MessageService.getMessage("MOVIE_ANNOUNCEMENT_NOT_FOUND"), HttpStatus.NOT_FOUND));
 
-        //movie announcement
+        if (dto.getReservedHallDtoList().isEmpty()) throw new RestException(MessageService.getMessage("LIST_EMPTY"),HttpStatus.NOT_FOUND);
 
-        if (movieAnnouncementRepository.findById(dto.getMovieAnnouncementId()).isPresent()) {
-            for (ReservedHallDto reservedHallDto : dto.getReservedHallDtoList()) {
-
-                if (hallRepository.findById(reservedHallDto.getHallId()).isPresent()) {
-                    MovieAnnouncement movieAnnouncement = movieAnnouncementRepository.findById(dto.getMovieAnnouncementId()).get();
-                    Integer durationInMinutes = movieAnnouncement.getMovie().getDurationInMinutes();
-                    Hall hall = hallRepository.findById(reservedHallDto.getHallId()).get();
-                    List<SessionDate> sessionDate = getSessionDate(reservedHallDto);
-                    List<SessionTime> sessionTime = getSessionTime(reservedHallDto);
+        for (ReservedHallDto reservedHallDto : dto.getReservedHallDtoList()) {
+            Hall hall = hallRepository.findById(reservedHallDto.getHallId()).orElseThrow(() -> new RestException(MessageService.getMessage("HALL_NOT_FOUND"), HttpStatus.NOT_FOUND));
+            Integer durationInMinutes = movieAnnouncement.getMovie().getDurationInMinutes();
+            List<SessionDate> sessionDate = getSessionDate(reservedHallDto);
+            List<SessionTime> sessionTime = getSessionTime(reservedHallDto);
 
                     for (SessionDate date : sessionDate) {
                         for (SessionTime time : sessionTime) {
@@ -74,70 +71,43 @@ public class MovieSessionServiceImpl implements MovieSessionService {
                             movieSession.setHall(hall);
                             movieSession.setStartDate(date);
                             movieSession.setStartTime(time);
-                            movieSession.setEndTime(calculateEndTime(durationInMinutes, time));
+                            SessionTime calculateEndTime = calculateEndTime(durationInMinutes, time);
+                            movieSession.setEndTime(calculateEndTime);
                             movieSessionRepository.save(movieSession);
                         }
                     }
-
-                }
-
             }
-            return new ApiResponse(MessageService.getMessage("SUCCESS"), true);
-        }
-
-        return new ApiResponse(MessageService.getMessage("MY_ERROR"), true);
-
+            return new ApiResponse(MessageService.getMessage("MOVIE_SESSION_SAVED"), true);
     }
 
-    private SessionTime calculateEndTime(Integer durationInMinutes, SessionTime startTime) {
-
-        LocalTime localTime = startTime.getTime().plusMinutes(durationInMinutes);
-        SessionTime sessionTime = null;
-        sessionTime = sessionTimeRepository.getSessionTimeByTime(localTime);
-        if (sessionTime == null) {
-            sessionTime = sessionTimeRepository.save(new SessionTime(localTime));
-        }
-
-        return sessionTime;
-    }
-
-
-    public List<SessionTime> getSessionTime(ReservedHallDto reservedHallDto) {
-        List<SessionTime> sessionTimeList = new ArrayList<>();
-        for (String startTime : reservedHallDto.getStartTimeList()) {
-            SessionTime sessionTimeByTime = null;
-            sessionTimeByTime = sessionTimeRepository.getSessionTimeByTime(LocalTime.parse(startTime));
-            if (sessionTimeByTime == null) {
-                sessionTimeByTime = sessionTimeRepository.save(new SessionTime((LocalTime.parse(startTime))));
-            }
-            sessionTimeList.add(sessionTimeByTime);
-        }
-        return sessionTimeList;
-    }
-
-    public List<SessionDate> getSessionDate(ReservedHallDto reservedHallDto) {
-        LocalDate startDate = LocalDate.parse(reservedHallDto.getStartDate());
-        LocalDate endDate = LocalDate.parse(reservedHallDto.getEndDate());
-
-        List<SessionDate> sessionDateList = new ArrayList<>();
-        int in = 0;
-        for (int i = startDate.getDayOfYear(); i <= endDate.getDayOfYear(); i++) {
-            SessionDate sessionDate = null;
-            sessionDate = sessionDateRepository.getSessionDateByDate(startDate);
-            if (sessionDate == null) {
-                sessionDate = sessionDateRepository.save(new SessionDate(startDate));
-            }
-            in++;
-            startDate = startDate.plusDays(in);
-            sessionDateList.add(sessionDate);
-        }
-        return sessionDateList;
-    }
 
     @Override
     public ApiResponse editMovieSession(UUID id, MovieSessionDto dto) {
-        // TODO: 3/28/2022 Bugunoq tugat!
-        return null;
+        MovieSession editingMovieSession = movieSessionRepository.findById(id).orElseThrow(() -> new RestException(MessageService.getMessage("MOVIE_SESSION_NOT_FOUND"), HttpStatus.NOT_FOUND));
+
+        MovieAnnouncement movieAnnouncement = movieAnnouncementRepository.findById(dto.getMovieAnnouncementId()).orElseThrow(() -> new RestException(MessageService.getMessage("MOVIE_ANNOUNCEMENT_NOT_FOUND"), HttpStatus.NOT_FOUND));
+
+        if (dto.getReservedHallDtoList().isEmpty()) throw new RestException(MessageService.getMessage("LIST_EMPTY"),HttpStatus.NOT_FOUND);
+
+        for (ReservedHallDto reservedHallDto : dto.getReservedHallDtoList()) {
+            Hall hall = hallRepository.findById(reservedHallDto.getHallId()).orElseThrow(() -> new RestException(MessageService.getMessage("HALL_NOT_FOUND"), HttpStatus.NOT_FOUND));
+            Integer durationInMinutes = movieAnnouncement.getMovie().getDurationInMinutes();
+            List<SessionDate> sessionDate = getSessionDate(reservedHallDto);
+            List<SessionTime> sessionTime = getSessionTime(reservedHallDto);
+
+            for (SessionDate date : sessionDate) {
+                for (SessionTime time : sessionTime) {
+                    editingMovieSession.setMovieAnnouncement(movieAnnouncement);
+                    editingMovieSession.setHall(hall);
+                    editingMovieSession.setStartDate(date);
+                    editingMovieSession.setStartTime(time);
+                    SessionTime calculateEndTime = calculateEndTime(durationInMinutes, time);
+                    editingMovieSession.setEndTime(calculateEndTime);
+                    movieSessionRepository.save(editingMovieSession);
+                }
+            }
+        }
+        return new ApiResponse(MessageService.getMessage("MOVIE_SESSION_EDITED"), true);
     }
 
     @Override
@@ -151,18 +121,53 @@ public class MovieSessionServiceImpl implements MovieSessionService {
         }
     }
 
-    private List<SessionDate> getDates(String startDate, String endDate) {
-        SessionDate startedSessionDate = sessionDateRepository.getSessionDateByDate(LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        SessionDate endSessionDate = sessionDateRepository.getSessionDateByDate(LocalDate.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        if (startedSessionDate != null && endSessionDate != null) {
-            int in = 0;
-            for (int i = startedSessionDate.getDate().getDayOfYear(); i < endSessionDate.getDate().getDayOfYear(); i++) {
-                LocalDate date = startedSessionDate.getDate().plusDays(in++);
-                return null;
-            }
-            return null;
+    private SessionTime calculateEndTime(Integer durationInMinutes, SessionTime startTime) {
 
+        LocalTime endTime = startTime.getTime().plusMinutes(durationInMinutes + 15);
+        if (sessionTimeRepository.existsByTime(endTime)) {
+            return sessionTimeRepository.getSessionTimeByTime(endTime);
+        } else {
+            return sessionTimeRepository.save(new SessionTime(endTime));
         }
-        return null;
+
+    }
+
+    private List<SessionTime> getSessionTime(ReservedHallDto reservedHallDto) {
+
+        List<SessionTime> sessionTimeList = new ArrayList<>();
+        for (String startTime : reservedHallDto.getStartTimeList()) {
+            LocalTime time = LocalTime.parse(startTime);
+            if (sessionTimeRepository.existsByTime(time)) {
+                SessionTime sessionTime = sessionTimeRepository.getSessionTimeByTime(time);
+                sessionTimeList.add(sessionTime);
+            } else {
+                SessionTime sessionTime = new SessionTime(time);
+                SessionTime save = sessionTimeRepository.save(sessionTime);
+                sessionTimeList.add(save);
+            }
+        }
+
+        return sessionTimeList;
+    }
+
+    private List<SessionDate> getSessionDate(ReservedHallDto reservedHallDto) {
+
+        LocalDate startDate = LocalDate.parse(reservedHallDto.getStartDate());
+        LocalDate endDate = LocalDate.parse(reservedHallDto.getEndDate());
+
+        List<SessionDate> sessionDateList = new ArrayList<>();
+        int in = 0;
+        for (int i = startDate.getDayOfYear(); i <= endDate.getDayOfYear(); i++) {
+            LocalDate newDate = startDate.plusDays(in++);
+            if (sessionDateRepository.existsByDate(newDate)) {
+                SessionDate date = sessionDateRepository.getSessionDateByDate(newDate);
+                sessionDateList.add(date);
+            } else {
+                SessionDate date = new SessionDate(newDate);
+                SessionDate save = sessionDateRepository.save(date);
+                sessionDateList.add(save);
+            }
+        }
+        return sessionDateList;
     }
 }

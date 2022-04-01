@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @Setter
 @Getter
-@Entity(name = "Movie_sessions")
+@Entity(name = "movie_sessions")
 public class MovieSession extends AbsEntity {
 
     @ManyToOne

@@ -32,7 +32,7 @@ public interface MovieSessionRepository extends JpaRepository<MovieSession, UUID
             value = "select cast(ma.id as varchar)    as movieAnnouncementId,\n" +
                     "   cast(ma.movie_id as varchar)    as movieId,\n" +
                     "   m.title                         as movieTitle,\n" +
-                    "   cast(m.cover_img_id as varchar) as movieCoverImgId,\n" +
+                    "   cast(m.cover_img_id as varchar) as coverImg,\n" +
                     "   cast(sd.id as varchar)          as startDateId, \n" +
                     "   sd.date                         as startDate\n" +
                     "from movie_sessions ms\n"+

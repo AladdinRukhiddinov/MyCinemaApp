@@ -10,7 +10,8 @@ import java.util.UUID;
 
 public interface TicketRepository extends JpaRepository<Ticket, UUID> {
 
-    @Query(nativeQuery = true, value = "select cast(t.id as varchar) as id,\n" +
+    @Query(nativeQuery = true,
+            value = "select cast(t.id as varchar) as id,\n" +
             "       m.title,\n" +
             "       s.number              as seatNumber,\n" +
             "       hr.number             as rowNumber,\n" +

@@ -24,7 +24,7 @@ public class Hall extends AbsEntity {
 
     private Double vip_additional_fee_in_percent;
 
-    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hall", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Row> rowList;
 
     public Hall(String name) {

@@ -15,7 +15,7 @@ import java.time.LocalTime;
 @Entity(name = "session_times")
 public class SessionTime extends AbsEntity {
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private LocalTime time;
 
 }
